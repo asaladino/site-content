@@ -1,0 +1,7 @@
+{
+  "name": "site-content",
+  "version": "0.0.1",
+  "dependencies": {
+    "unfluff": "^3.0.0"
+  }
+}
