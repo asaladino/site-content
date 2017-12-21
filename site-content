@@ -1,2 +1,6 @@
 #!/usr/bin/env node
 
+const extractor = require('unfluff');
+
+// https://github.com/ageitgey/node-unfluff
+data = extractor(my_html_data);
