@@ -2,6 +2,9 @@
   "name": "site-content",
   "version": "0.0.1",
   "dependencies": {
+    "ascii-progress": "^1.0.5",
+    "command-line-args": "^4.0.7",
+    "command-line-usage": "^4.0.2",
     "unfluff": "^3.0.0"
   }
 }
