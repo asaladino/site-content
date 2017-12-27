@@ -29,9 +29,14 @@ if (args.shouldShowHelp()) {
 
     let htmlRepository = new HtmlRepository(args.getProjectPath());
     let contentRepository = new ContentRepository(args.getProjectPath());
+
+    let bar = ProgressUtility.build(urls.length);
+
     urls.forEach(url => {
         const html = htmlRepository.read(url);
         let data = extractor(html);
-        contentRepository.save(url, data).then(() => console.log('saved: ' + url.name));
+        contentRepository.save(url, data).then(() => {
+            bar.tick(1, {message: 'saved: ' + url.name});
+        });
     });
 }
