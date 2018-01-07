@@ -15,13 +15,12 @@ class UrlsRepository {
     }
 
     /**
-     * Find urls for range specified in the Pa11yLogin
+     * Find all urls.
      * @returns {[Url]}
      */
-    findForRange() {
-        let urlsFile = path.join(this.args.output.filename, this.args.getSiteName(), 'urls', 'urls.json');
-        return JSON.parse(fs.readFileSync(urlsFile).toString())
-            .map(entry => new Url(entry));
+    findAll() {
+        let urlsFile = path.join(this.args.getProjectPath(), 'urls', 'urls.json');
+        return JSON.parse(fs.readFileSync(urlsFile).toString()).map(entry => new Url(entry));
     }
 }
 

@@ -17,7 +17,7 @@ class ContentService {
 
     start() {
         let urlsRepository = new UrlsRepository(this.option, this.args);
-        let urls = urlsRepository.findForRange();
+        let urls = urlsRepository.findAll();
 
         let htmlRepository = new HtmlRepository(this.args.getProjectPath());
         let contentRepository = new ContentRepository(this.args.getProjectPath());

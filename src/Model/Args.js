@@ -33,12 +33,20 @@ class Args {
         return this.hasOwnProperty('help') || (this.domain === null || this.output === null);
     }
 
+    /**
+     * Get the site name from the domain.
+     * @returns {string} the site name.
+     */
     getSiteName() {
         return this.domain.replace(/[.]/g, '_');
     }
 
+    /**
+     * Get the project folder which the output + the site name. Also, it will be created if it doesn't exist.
+     * @returns {string} the project path.
+     */
     getProjectPath() {
-        let siteName = this.domain.replace(/[.]/g, '_');
+        let siteName = this.getSiteName();
         let projectPath = path.join(this.output.filename, siteName);
         if (!fs.existsSync(projectPath)) {
             fs.mkdirSync(projectPath);
