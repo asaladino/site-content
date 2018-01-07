@@ -20,7 +20,7 @@ class HtmlRepository {
     }
 
     /**
-     * Reads html for the rul.
+     * Reads html for the url.
      * @param url {Url}
      * @returns {string}
      */

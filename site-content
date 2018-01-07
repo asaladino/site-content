@@ -19,9 +19,13 @@ if (args.shouldShowHelp()) {
     let bar;
     let contentService = new ContentService(args);
     contentService.on('start', urls => {
-        bar = ProgressUtility.build(urls.length);
+        if (args.verbose) {
+            bar = ProgressUtility.build(urls.length);
+        }
     }).on('progress', url => {
-        bar.tick(1, {message: 'saved: ' + url.url});
+        if (args.verbose) {
+            bar.tick(1, {message: 'saved: ' + url.url});
+        }
     }).on('complete', () => console.log('Done'));
     contentService.start();
 }

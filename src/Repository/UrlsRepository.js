@@ -1,22 +1,24 @@
 const fs = require('fs');
 const Url = require('../Model/Url');
 const Args = require('../Model/Args');
-const Option = require('../Model/Option');
 const path = require("path");
 
+/**
+ * Retrieve all the urls for the domain.
+ */
 class UrlsRepository {
+
     /**
-     * @param option {Option}
-     * @param args {Args}
+     * Build the url repo.
+     * @param args {Args} passed from the commandline.
      */
-    constructor(option, args) {
-        this.option = option;
+    constructor(args) {
         this.args = args;
     }
 
     /**
      * Find all urls.
-     * @returns {[Url]}
+     * @returns {[Url]} from the domain.
      */
     findAll() {
         let urlsFile = path.join(this.args.getProjectPath(), 'urls', 'urls.json');
