@@ -12,13 +12,13 @@ module.exports = [
                 name: 'domain',
                 type: String,
                 typeLabel: '[underline]{www.domain.com}',
-                description: '(Required) Domain to run a11y reports on.'
+                description: '(Required) Domain to extract contents.'
             },
             {
                 name: 'output',
                 type: filename => new FileDetails(filename),
                 typeLabel: '[underline]{file}',
-                description: '(Required) Folder to output the reports to.'
+                description: '(Required) Folder to output the contents to.'
             },
             {
                 name: 'verbose',
