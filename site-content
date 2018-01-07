@@ -14,9 +14,11 @@ let args = new Args(commandLineArgs(menu[1]['optionList']));
 if (args.shouldShowHelp()) {
     console.log(getUsage(menu));
 } else {
+    args.output.doesFolderExist();
+    console.log('\nStarting Site Content');
     let bar;
     let contentService = new ContentService(args);
-    contentService.on('start', urls =>{
+    contentService.on('start', urls => {
         bar = ProgressUtility.build(urls.length);
     }).on('progress', url => {
         bar.tick(1, {message: 'saved: ' + url.url});
