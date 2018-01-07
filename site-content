@@ -1,17 +1,12 @@
 #!/usr/bin/env node
 
-const extractor = require('unfluff');
 const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
-
-const OptionsRepository = require('./src/Repository/OptionsRepository');
-const UrlsRepository = require('./src/Repository/UrlsRepository');
-const HtmlRepository = require('./src/Repository/HtmlRepository');
-const ContentRepository = require('./src/Repository/ContentRepository');
 
 const menu = require('./src/Model/Menu');
 const Args = require('./src/Model/Args');
 
+const ContentService = require('./src/Service/ContentService');
 const ProgressUtility = require('./src/Utility/ProgressUtility');
 
 let args = new Args(commandLineArgs(menu[1]['optionList']));
@@ -19,24 +14,12 @@ let args = new Args(commandLineArgs(menu[1]['optionList']));
 if (args.shouldShowHelp()) {
     console.log(getUsage(menu));
 } else {
-    // Load the option.
-    let optionsRepository = new OptionsRepository(args);
-    let option = optionsRepository.getOption();
-
-    // Load the urls to test.
-    let urlsRepository = new UrlsRepository(option, args);
-    let urls = urlsRepository.findForRange();
-
-    let htmlRepository = new HtmlRepository(args.getProjectPath());
-    let contentRepository = new ContentRepository(args.getProjectPath());
-
-    let bar = ProgressUtility.build(urls.length);
-
-    urls.forEach(url => {
-        const html = htmlRepository.read(url);
-        let data = extractor(html);
-        contentRepository.save(url, data).then(() => {
-            bar.tick(1, {message: 'saved: ' + url.name});
-        });
-    });
+    let bar;
+    let contentService = new ContentService(args);
+    contentService.on('start', urls =>{
+        bar = ProgressUtility.build(urls.length);
+    }).on('progress', url => {
+        bar.tick(1, {message: 'saved: ' + url.url});
+    }).on('complete', () => console.log('Done'));
+    contentService.start();
 }

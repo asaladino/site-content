@@ -21,10 +21,7 @@ class UrlsRepository {
     findForRange() {
         let urlsFile = path.join(this.args.output.filename, this.args.getSiteName(), 'urls', 'urls.json');
         return JSON.parse(fs.readFileSync(urlsFile).toString())
-            .slice(this.option.a11y.pa11yLogin.startUrl, this.option.a11y.pa11yLogin.endUrl)
-            .map(entry => {
-                return new Url(entry.name, entry.url, entry.fragment);
-            });
+            .map(entry => new Url(entry));
     }
 }
 
