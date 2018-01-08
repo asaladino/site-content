@@ -1,6 +1,6 @@
 # Site Content
 
-Extracts content from a bunch saved html document. Should be used with
+Extracts content from a bunch saved html documents. Should be used with
 [site-index](https://github.com/asaladino/site-index).
 
 To start the content extraction, run:
