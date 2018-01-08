@@ -1,6 +1,14 @@
 {
   "name": "site-content",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "  Will crawl a site and generate the json file for all the urls found. Also converts a sitemap to a json file.",
+  "main": "site-content",
+  "repository": "https://github.com/asaladino/site-content",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Saladino<adam@codingsimply.com>",
+  "license": "MIT",
   "dependencies": {
     "ascii-progress": "^1.0.5",
     "command-line-args": "^4.0.7",
