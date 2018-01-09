@@ -3,12 +3,12 @@ const path = require("path");
 const fs = require("fs");
 
 /**
- * Commandline arguments being passed to the indexer.
+ * Commandline arguments being passed to the app.
  */
 class Args {
     constructor(params) {
         /**
-         * Project directory to output the index results.
+         * Project directory to output the results.
          * @type {FileDetails|null}
          */
         this.output = null;
