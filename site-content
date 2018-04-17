@@ -22,9 +22,9 @@ if (args.shouldShowHelp()) {
         if (args.verbose) {
             bar = ProgressUtility.build(urls.length);
         }
-    }).on('progress', url => {
+    }).on('progress', message => {
         if (args.verbose) {
-            bar.tick(1, {message: 'saved: ' + url.url});
+            bar.tick(1, {message: 'saved: ' + message});
         }
     }).on('complete', () => console.log('Done'));
     contentService.start();

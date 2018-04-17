@@ -35,9 +35,17 @@ class ContentService {
             let data = extractor(html);
             contentRepository.save(url, data).then(() => {
             });
-            this.emitProgress(url);
+            this.emitProgress(this.shortenUrl(url.url));
         });
         this.emitComplete();
+    }
+
+
+    shortenUrl(url) {
+        if(url.length > 20) {
+            return '...' + url.substring(url.length - 20, url.length);
+        }
+        return url;
     }
 
     /**
@@ -65,7 +73,7 @@ class ContentService {
 
     /**
      * Emits that progress event.
-     * @param url {Url} that is currently having its content extracted from.
+     * @param url {string} that is currently having its content extracted from.
      */
     emitProgress(url) {
         this.events.forEach((callback, event) => {
