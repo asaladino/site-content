@@ -6,26 +6,14 @@ const getUsage = require('command-line-usage');
 const menu = require('./src/Model/Menu');
 const Args = require('./src/Model/Args');
 
-const ContentService = require('./src/Service/ContentService');
-const ProgressUtility = require('./src/Utility/ProgressUtility');
+const ContentController = require('./src/Controller/ContentController');
 
 let args = new Args(commandLineArgs(menu[1]['optionList']));
 
 if (args.shouldShowHelp()) {
     console.log(getUsage(menu));
 } else {
-    args.output.doesFolderExist();
     console.log('\nStarting Site Content');
-    let bar;
-    let contentService = new ContentService(args);
-    contentService.on('start', urls => {
-        if (args.verbose) {
-            bar = ProgressUtility.build(urls.length);
-        }
-    }).on('progress', message => {
-        if (args.verbose) {
-            bar.tick(1, {message: 'saved: ' + message});
-        }
-    }).on('complete', () => console.log('Done'));
-    contentService.start();
+    let contentController = new ContentController(args);
+    contentController.start().then();
 }
