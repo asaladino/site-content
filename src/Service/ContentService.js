@@ -2,6 +2,9 @@ const UrlsRepository = require('../Repository/UrlsRepository');
 const HtmlRepository = require('../Repository/HtmlRepository');
 const ContentRepository = require('../Repository/ContentRepository');
 
+const fs = require('fs');
+const path = require("path");
+
 const Args = require('../Model/Args');
 
 const extractor = require('unfluff');
@@ -24,10 +27,12 @@ class ContentService {
      */
     start() {
         let urlsRepository = new UrlsRepository(this.args);
-        let urls = urlsRepository.findAll();
-
         let htmlRepository = new HtmlRepository(this.args.getProjectPath());
         let contentRepository = new ContentRepository(this.args.getProjectPath());
+
+        let urls = urlsRepository.findAll().filter(url => {
+            return !fs.existsSync(path.join(contentRepository.getProjectsContentFolder(), url.name + '.json'));
+        });
 
         this.emitStart(urls);
         urls.forEach(url => {
