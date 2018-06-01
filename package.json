@@ -1,6 +1,6 @@
 {
   "name": "site-content",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Extracts content from a bunch saved html documents. Should be used with site-index.",
   "main": "site-content",
   "repository": "https://github.com/asaladino/site-content",
@@ -10,9 +10,9 @@
   "author": "Adam Saladino<adam@codingsimply.com>",
   "license": "MIT",
   "dependencies": {
-    "ascii-progress": "^1.0.5",
     "command-line-args": "^4.0.7",
     "command-line-usage": "^4.0.2",
-    "unfluff": "^3.0.0"
+    "unfluff": "^3.0.1",
+    "winston": "^3.0.0-rc5"
   }
 }

@@ -1,26 +1,28 @@
 const ContentService = require('../Service/ContentService');
-const ProgressUtility = require('../Utility/ProgressUtility');
 
 class ContentController {
     constructor(args) {
         this.args = args;
+        this.logger = new (require('../Utility/Logger'))(args);
     }
 
     start() {
         return new Promise((resolve, reject) => {
             this.args.output.doesFolderExist();
-            let bar;
             let contentService = new ContentService(this.args);
-            contentService.on('start', urls => {
+            contentService.on('start', progress => {
+                this.logger.report(progress.toLog());
                 if (this.args.verbose) {
-                    bar = ProgressUtility.build(urls.length);
+                    console.log(progress.toString());
                 }
-            }).on('progress', message => {
+            }).on('progress', progress => {
+                this.logger.report(progress.toLog());
                 if (this.args.verbose) {
-                    bar.tick(1, {message: 'saved: ' + message});
+                    console.log(progress.toString());
                 }
-            }).on('complete', () => {
-                console.log('Done');
+            }).on('complete', (progress) => {
+                this.logger.report(progress.toLog());
+                console.log(progress.toString());
                 resolve();
             });
             contentService.start();

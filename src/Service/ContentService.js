@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require("path");
 
 const Args = require('../Model/Args');
+const Progress = require('../Model/Progress');
 
 const extractor = require('unfluff');
 
@@ -33,24 +34,17 @@ class ContentService {
         let urls = urlsRepository.findAll().filter(url => {
             return !fs.existsSync(path.join(contentRepository.getProjectsContentFolder(), url.name + '.json'));
         });
+        let progress = new Progress(null, urls.length);
 
-        this.emitStart(urls);
+        this.emitStart(progress);
         urls.forEach(url => {
             const html = htmlRepository.read(url);
             let data = extractor(html);
-            contentRepository.save(url, data).then(() => {
-            });
-            this.emitProgress(this.shortenUrl(url.url));
+            contentRepository.save(url, data).then();
+            progress.update(url);
+            this.emitProgress(progress);
         });
-        this.emitComplete();
-    }
-
-
-    shortenUrl(url) {
-        if(url.length > 20) {
-            return '...' + url.substring(url.length - 20, url.length);
-        }
-        return url;
+        this.emitComplete(progress);
     }
 
     /**
@@ -66,35 +60,36 @@ class ContentService {
 
     /**
      * Emits that start event.
-     * @param urls {[Url]} found at start.
+     * @param progress {Progress} where we at.
      */
-    emitStart(urls) {
+    emitStart(progress) {
         this.events.forEach((callback, event) => {
             if (event === 'start') {
-                callback(urls);
+                callback(progress);
             }
         });
     }
 
     /**
      * Emits that progress event.
-     * @param url {string} that is currently having its content extracted from.
+     * @param progress {Progress} where we at.
      */
-    emitProgress(url) {
+    emitProgress(progress) {
         this.events.forEach((callback, event) => {
             if (event === 'progress') {
-                callback(url);
+                callback(progress);
             }
         });
     }
 
     /**
      * Emits that complete event when service has finished.
+     * @param progress {Progress} where we at.
      */
-    emitComplete() {
+    emitComplete(progress) {
         this.events.forEach((callback, event) => {
             if (event === 'complete') {
-                callback();
+                callback(progress);
             }
         });
     }
