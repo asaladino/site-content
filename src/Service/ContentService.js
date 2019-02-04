@@ -1,14 +1,14 @@
-const UrlsRepository = require('../Repository/UrlsRepository');
-const HtmlRepository = require('../Repository/HtmlRepository');
-const ContentRepository = require('../Repository/ContentRepository');
+import UrlsRepository from '../Repository/UrlsRepository';
+import HtmlRepository from '../Repository/HtmlRepository';
+import ContentRepository from '../Repository/ContentRepository';
 
-const fs = require('fs');
-const path = require("path");
+import { existsSync } from 'fs';
+import { join } from "path";
 
-const Args = require('../Model/Args');
-const Progress = require('../Model/Progress');
+import Args from '../Model/Args';
+import Progress from '../Model/Progress';
 
-const extractor = require('unfluff');
+import extractor from 'unfluff';
 
 /**
  * This service extracts all the content from the sites crawled html.
@@ -32,7 +32,7 @@ class ContentService {
         let contentRepository = new ContentRepository(this.args.getProjectPath());
 
         let urls = urlsRepository.findAll().filter(url => {
-            return !fs.existsSync(path.join(contentRepository.getProjectsContentFolder(), url.name + '.json'));
+            return !existsSync(join(contentRepository.getProjectsContentFolder(), url.name + '.json'));
         });
         let progress = new Progress(null, urls.length);
 
@@ -95,4 +95,4 @@ class ContentService {
     }
 }
 
-module.exports = ContentService;
+export default ContentService;

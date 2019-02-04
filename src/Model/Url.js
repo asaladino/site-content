@@ -17,4 +17,4 @@ class Url {
     }
 }
 
-module.exports = Url;
+export default Url;

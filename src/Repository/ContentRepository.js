@@ -1,6 +1,6 @@
-const fs = require('fs');
-const Url = require('../Model/Url');
-const path = require("path");
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import Url from '../Model/Url';
+import { join } from "path";
 
 /**
  * Save the url html to file.
@@ -26,9 +26,9 @@ class ContentRepository {
      * @returns {Promise}
      */
     save(url, content) {
-        const file = path.join(this.getProjectsContentFolder(), url.name + '.json');
+        const file = join(this.getProjectsContentFolder(), url.name + '.json');
         return new Promise((resolve, reject) => {
-            fs.writeFileSync(file, JSON.stringify(content, null, 2), function (error) {
+            writeFileSync(file, JSON.stringify(content, null, 2), function (error) {
                 reject(error);
             });
             resolve();
@@ -40,12 +40,12 @@ class ContentRepository {
      * @returns {string} for the html folder.
      */
     getProjectsContentFolder() {
-        let projectsPathHtml = path.join(this.projectFolder, 'content');
-        if (!fs.existsSync(projectsPathHtml)) {
-            fs.mkdirSync(projectsPathHtml);
+        let projectsPathHtml = join(this.projectFolder, 'content');
+        if (!existsSync(projectsPathHtml)) {
+            mkdirSync(projectsPathHtml);
         }
         return projectsPathHtml;
     }
 }
 
-module.exports = ContentRepository;
+export default ContentRepository;

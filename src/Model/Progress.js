@@ -1,4 +1,4 @@
-const Url = require('./Url');
+import Url from './Url';
 
 /**
  * Class for reporting the progress.
@@ -46,4 +46,4 @@ class Progress {
     }
 }
 
-module.exports = Progress;
+export default Progress;

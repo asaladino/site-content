@@ -1,10 +1,10 @@
-const FileDetails = require('./FileDetails');
+import FileDetails from './FileDetails';
 
 /**
  * Available options for the site index.
  * @type {*[]}
  */
-module.exports = [
+export default [
     {
         header: 'Site Content',
         content: 'Extracts content from a bunch of urls.'

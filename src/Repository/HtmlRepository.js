@@ -1,6 +1,6 @@
-const fs = require('fs');
-const Url = require('../Model/Url');
-const path = require("path");
+import { readFileSync, existsSync, mkdirSync } from 'fs';
+import Url from '../Model/Url';
+import { join } from "path";
 
 /**
  * Save the url html to file.
@@ -25,8 +25,8 @@ class HtmlRepository {
      * @returns {string}
      */
     read(url) {
-        const file = path.join(this.getProjectsHtmlFolder(), url.name + '.html');
-        return fs.readFileSync(file).toString();
+        const file = join(this.getProjectsHtmlFolder(), url.name + '.html');
+        return readFileSync(file).toString();
     }
 
     /**
@@ -34,12 +34,12 @@ class HtmlRepository {
      * @returns {string} for the html folder.
      */
     getProjectsHtmlFolder() {
-        let projectsPathHtml = path.join(this.projectFolder, 'html');
-        if (!fs.existsSync(projectsPathHtml)) {
-            fs.mkdirSync(projectsPathHtml);
+        let projectsPathHtml = join(this.projectFolder, 'html');
+        if (!existsSync(projectsPathHtml)) {
+            mkdirSync(projectsPathHtml);
         }
         return projectsPathHtml;
     }
 }
 
-module.exports = HtmlRepository;
+export default HtmlRepository;
