@@ -5,7 +5,7 @@
   "main": "site-content",
   "repository": "https://github.com/asaladino/site-content",
   "scripts": {
-    "start": "node ./bin/site-index",
+    "start": "node ./bin/site-content",
     "build": "babel src -d lib -s",
     "babel": "babel --help",
     "prepublish": "npm run build",
