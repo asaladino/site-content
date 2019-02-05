@@ -1,49 +1,71 @@
-import Url from './Url';
+// @flow
+import Url from "./Url";
+
+type ProgressLog = {
+  total: number,
+  progress: number,
+  url: string
+};
 
 /**
  * Class for reporting the progress.
  */
-class Progress {
+export default class Progress {
+  /**
+   * Current url
+   */
+  url: ?Url;
+  /**
+   * Total urls to process.
+   */
+  total: number;
+  /**
+   * Current progress through the total.
+   */
+  progress: number;
+  /**
+   * Build a progress object.
+   * @param url {Url|null} current url
+   * @param total {number} total urls to process.
+   */
+  constructor(url: ?Url = null, total: number = 0) {
+    this.url = url;
+    this.total = total;
+    this.progress = 0;
+  }
 
-    /**
-     * Build a progress object.
-     * @param url {Url|null} current url
-     * @param total {number} total urls to process.
-     */
-    constructor(url = null, total = 0) {
-        this.url = url;
-        this.total = total;
-        this.progress = 0;
-    }
+  /**
+   * Display something meaning full about the progress.
+   */
+  toString(): string {
+    const message = this.url != null ? this.url.url : "";
+    return `${this.total} | ${this.progress} :: retrieving: ${message}`;
+  }
 
-    /**
-     * Display something meaning full about the progress.
-     * @returns {String}
-     */
-    toString() {
-        return this.total + ' | ' + this.progress + ' :: retrieving: ' + (this.url === null ? null : this.url.url);
-    }
+  /**
+   * Check if there is a url for the progress.
+   */
+  hasUrl(): boolean {
+    return this.url != null;
+  }
 
-    /**
-     * Something to report in the logs.
-     * @return {{urlsPoolLength: number, urlsLength: number, url: string}}
-     */
-    toLog() {
-        return {
-            total: this.total,
-            progress: this.progress,
-            url: this.url === null ? null : this.url.url
-        }
-    }
+  /**
+   * Something to report in the logs.
+   */
+  toLog(): ProgressLog {
+    return {
+      total: this.total,
+      progress: this.progress,
+      url: this.url != null ? this.url.url : ""
+    };
+  }
 
-    /**
-     * Update the progress.
-     * @param url {Url} that was just processed.
-     */
-    update(url) {
-        this.url = url;
-        this.progress++;
-    }
+  /**
+   * Update the progress.
+   * @param url {Url} that was just processed.
+   */
+  update(url: ?Url) {
+    this.url = url;
+    this.progress++;
+  }
 }
-
-export default Progress;

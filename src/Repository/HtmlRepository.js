@@ -8,7 +8,7 @@ import { join } from "path";
 class HtmlRepository {
 
     /**
-     * Build a json url repo.
+     * Build a json url repository.
      * @param projectFolder {string}
      */
     constructor(projectFolder) {

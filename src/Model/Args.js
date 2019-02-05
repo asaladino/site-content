@@ -20,7 +20,7 @@ class Args {
    */
   verbose: boolean;
   constructor(params: any) {
-    this.verbose = true;
+    this.verbose = false;
     Object.assign(this, params);
   }
 
