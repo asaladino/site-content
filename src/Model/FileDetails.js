@@ -4,7 +4,7 @@ import { existsSync } from "fs";
 /**
  * Convenience class for checking if a file exists.
  */
-class FileDetails {
+export default class FileDetails {
   /**
    * File name to get details for.
    */
@@ -24,5 +24,3 @@ class FileDetails {
     }
   }
 }
-
-export default FileDetails;

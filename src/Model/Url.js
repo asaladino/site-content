@@ -1,20 +1,20 @@
+// @flow
 /**
  * Url found on the site.
  */
-class Url {
-    constructor(entry) {
-        /**
-         * Kind of like a id for file names and look up.
-         * @type {string}
-         */
-        this.name = '';
-        /**
-         * Full url found on the site.
-         * @type {string}
-         */
-        this.url = '';
-        Object.assign(this, entry);
-    }
-}
+export default class Url {
+  /**
+   * Kind of like a id for file names and look up.
+   */
+  name: string;
+  /**
+   * Full url found on the site.
+   */
+  url: string;
 
-export default Url;
+  constructor(entry: any) {
+    this.name = "";
+    this.url = "";
+    Object.assign(this, entry);
+  }
+}

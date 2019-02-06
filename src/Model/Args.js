@@ -6,7 +6,7 @@ import { existsSync, mkdirSync } from "fs";
 /**
  * Command-line arguments being passed to the app.
  */
-class Args {
+export default class Args {
   /**
    * Project directory to output the results.
    */
@@ -53,5 +53,3 @@ class Args {
     return projectPath;
   }
 }
-
-export default Args;

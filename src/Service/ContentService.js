@@ -1,3 +1,4 @@
+// @flow
 import UrlsRepository from "../Repository/UrlsRepository";
 import HtmlRepository from "../Repository/HtmlRepository";
 import ContentRepository from "../Repository/ContentRepository";
@@ -14,11 +15,13 @@ import extractor from "unfluff";
  * This service extracts all the content from the sites crawled html.
  */
 export default class ContentService {
+  args: Args;
+  events: Map<string, (progress: Progress) => void>;
+
   /**
    * Build the content service.
-   * @param args {Args} passed from the command-line.
    */
-  constructor(args) {
+  constructor(args: Args) {
     this.args = args;
     this.events = new Map();
   }
@@ -56,7 +59,7 @@ export default class ContentService {
    * @param callback {Function} called when the event is emitted.
    * @returns {ContentService} for chaining.
    */
-  on(event, callback) {
+  on(event: string, callback: (progress: Progress) => void): ContentService {
     this.events.set(event, callback);
     return this;
   }
@@ -65,7 +68,7 @@ export default class ContentService {
    * Emits that start event.
    * @param progress {Progress} where we at.
    */
-  emitStart(progress) {
+  emitStart(progress: Progress) {
     this.events.forEach((callback, event) => {
       if (event === "start") {
         callback(progress);
@@ -77,7 +80,7 @@ export default class ContentService {
    * Emits that progress event.
    * @param progress {Progress} where we at.
    */
-  emitProgress(progress) {
+  emitProgress(progress: Progress) {
     this.events.forEach((callback, event) => {
       if (event === "progress") {
         callback(progress);
@@ -89,7 +92,7 @@ export default class ContentService {
    * Emits that complete event when service has finished.
    * @param progress {Progress} where we at.
    */
-  emitComplete(progress) {
+  emitComplete(progress: Progress) {
     this.events.forEach((callback, event) => {
       if (event === "complete") {
         callback(progress);
