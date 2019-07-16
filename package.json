@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node ./bin/site-content",
     "build": "babel src -d lib -s",
+    "watch": "babel --watch --verbose src -d lib -s",
     "babel": "babel --help",
     "prepublish": "npm run build",
     "flow": "flow",
@@ -15,9 +16,10 @@
   "author": "Adam Saladino<adam@codingsimply.com>",
   "license": "MIT",
   "dependencies": {
+    "better-sqlite3": "^5.4.0",
     "command-line-args": "^4.0.7",
     "command-line-usage": "^4.0.2",
-    "unfluff": "^3.0.1",
+    "unfluff": "^3.2.0",
     "winston": "^3.0.0-rc5"
   },
   "devDependencies": {

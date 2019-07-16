@@ -10,6 +10,7 @@ import Args from "../Model/Args";
 import Progress from "../Model/Progress";
 
 import extractor from "unfluff";
+import SqliteCrawlStatesRepository from "../Repository/SqliteCrawlStatesRepository";
 
 /**
  * This service extracts all the content from the sites crawled html.
@@ -33,6 +34,7 @@ export default class ContentService {
     let urlsRepository = new UrlsRepository(this.args);
     let htmlRepository = new HtmlRepository(this.args.getProjectPath());
     let contentRepository = new ContentRepository(this.args.getProjectPath());
+    let crawlStatesRepository = new SqliteCrawlStatesRepository(this.args.getProjectPath());
 
     let urls = urlsRepository.findAll().filter(url => {
       return !existsSync(
@@ -46,6 +48,7 @@ export default class ContentService {
       const html = htmlRepository.read(url);
       let data = extractor(html);
       contentRepository.save(url, data).then();
+      crawlStatesRepository.update(url.name, data.title, data.text);
       progress.update(url);
       this.emitProgress(progress);
     });
