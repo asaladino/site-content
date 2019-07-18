@@ -1,11 +1,11 @@
 {
   "name": "site-content",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Extracts content from a bunch saved html documents. Should be used with site-index.",
   "main": "site-content",
   "repository": "https://github.com/asaladino/site-content",
   "scripts": {
-    "start": "node ./bin/site-content",
+    "start": "node src/site-content.js",
     "build": "babel src -d lib -s",
     "watch": "babel --watch --verbose src -d lib -s",
     "babel": "babel --help",
@@ -16,9 +16,12 @@
   "author": "Adam Saladino<adam@codingsimply.com>",
   "license": "MIT",
   "dependencies": {
-    "better-sqlite3": "^5.4.0",
     "command-line-args": "^4.0.7",
     "command-line-usage": "^4.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "sequelize": "^5.10.1",
+    "sqlite3": "^4.0.9",
     "unfluff": "^3.2.0",
     "winston": "^3.0.0-rc5"
   },
