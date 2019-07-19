@@ -25,11 +25,12 @@ export default class SqliteCrawlStatesRepository {
         }, {sequelize, modelName: 'url', tableName: 'urls', timestamps: false});
     }
 
+    // noinspection JSMethodCanBeStatic
     /**
      * Update a url with content and title.
      */
-    static update(name: string, title: string, contents: string) {
-        SqliteCrawlStatesRepository.update({
+    update(name: string, title: string, contents: string) {
+        Url.update({
             title: title,
             contents: contents,
         }, {

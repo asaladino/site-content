@@ -48,7 +48,7 @@ export default class ContentService {
             const html = htmlRepository.read(url);
             let data = extractor(html);
             contentRepository.save(url, data).then();
-            SqliteCrawlStatesRepository.update(url.name, data.title, data.text);
+            crawlStatesRepository.update(url.name, data.title, data.text);
             progress.update(url);
             this.emitProgress(progress);
         });
