@@ -8,7 +8,6 @@ export default class SearchController {
     constructor(args) {
         this.args = args;
         this.app = express();
-        this.port = 4444;
     }
 
     start() {
@@ -16,8 +15,8 @@ export default class SearchController {
         this.app.get('/', (req, res) => {
             this.search(req, res);
         });
-        this.app.listen(this.port, () => {
-            console.log(`Starting content search webservice. Listening on port ${this.port}!`);
+        this.app.listen(this.args.webSearchPort, () => {
+            console.log(`Starting content search webservice. Listening on port ${this.args.webSearchPort}!`);
         })
     }
 
