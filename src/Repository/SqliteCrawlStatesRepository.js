@@ -1,6 +1,7 @@
 // @flow
 import {join} from "path";
 import {Sequelize} from "sequelize";
+import fs from 'fs';
 
 const Op = Sequelize.Op;
 
@@ -15,6 +16,10 @@ export default class SqliteCrawlStatesRepository {
     constructor(projectFolder: string) {
         const projectsPathUrls = join(projectFolder, "urls");
         const databaseFile = join(projectsPathUrls, "crawl_state.sqlite");
+        if(!fs.existsSync(databaseFile)) {
+            throw 'Database not found.';
+        }
+
         const sequelize = new Sequelize(`sqlite:${databaseFile}`, {logging: false});
 
         Url.init({
