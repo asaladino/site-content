@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import http from "http";
+import https from "https";
 import Args from '../Model/Args';
 import SqliteCrawlStatesRepository from '../Repository/SqliteCrawlStatesRepository';
+import SettingsRepository from "../Repository/SettingsRepository";
 
 export default class SearchController {
 
@@ -11,13 +14,17 @@ export default class SearchController {
     }
 
     start() {
+        const settingsRepository = new SettingsRepository(this.args);
+        settingsRepository.doesFolderExist();
+        const setting = settingsRepository.getSetting();
         this.app.use(cors());
         this.app.get('/', (req, res) => {
             this.search(req, res);
         });
-        this.app.listen(this.args.webSearchPort, () => {
-            console.log(`Starting content search webservice. Listening on port ${this.args.webSearchPort}!`);
-        })
+        (setting.web.ssl.enable ? https : http).createServer(setting.getWebParams(), this.app)
+            .listen(setting.search.port, () => {
+                console.log(`Starting content search webservice. Listening on port ${setting.search.port}!`);
+            });
     }
 
     search(req, res) {

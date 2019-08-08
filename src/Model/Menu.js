@@ -41,12 +41,6 @@ export default [
                 description: "Start a web server for search."
             },
             {
-                name: "webSearchPort",
-                defaultValue: 4444,
-                type: Number,
-                description: "Start a web server on this port."
-            },
-            {
                 name: "help",
                 type: Boolean,
                 description: "Print this usage guide."
