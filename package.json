@@ -1,6 +1,6 @@
 {
   "name": "site-content",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Extracts content from a bunch saved html documents. Should be used with site-index.",
   "main": "site-content",
   "repository": "https://github.com/asaladino/site-content",

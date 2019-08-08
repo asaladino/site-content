@@ -24,11 +24,6 @@ export default class Args {
      */
     webSearch: boolean;
 
-    /**
-     * Port for the web search to run on.
-     */
-    webSearchPort: number;
-
     constructor(params: any) {
         this.verbose = false;
         Object.assign(this, params);
