@@ -20,7 +20,7 @@
     "command-line-usage": "^4.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "sequelize": "^5.10.1",
+    "sequelize": "^5.15.1",
     "sqlite3": "^4.0.9",
     "unfluff": "^3.2.0",
     "winston": "^3.0.0-rc5"
